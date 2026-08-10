@@ -1,0 +1,13 @@
+
+
+#Ignore vscode AI rules
+.github\instructions\
+
+.codacy/.gitignore
+.github/instructions/
+.codacy/*
+docker/.env
+JobTrackerBackend/.vs/*
+JobTrackerBackend/JobTrackerAPI/appsettings.Development.json
+JobTrackerBackend/JobTrackerAPI/bin/*
+JobTrackerBackend/JobTrackerAPI/obj/*

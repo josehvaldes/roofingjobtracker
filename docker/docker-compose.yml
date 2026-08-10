@@ -1,0 +1,26 @@
+name: roofing_job_tracker
+networks:
+  roofing_job_tracker_network:
+    driver: bridge
+
+volumes:
+  psgdata: null
+services:
+  # Add to docker-compose.yml
+  jobtracker:
+    image: postgres:18
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT:-5432}:${DB_PORT:-5432}"
+    volumes:
+      - psgdata:/var/lib/postgresql/
+      - ../database/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+    networks:
+      - roofing_job_tracker_network
+
+
