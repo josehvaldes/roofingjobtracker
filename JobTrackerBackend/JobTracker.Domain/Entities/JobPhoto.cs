@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JobTracker.Domain.Entities
 {
-    public sealed class JobPhoto
+    public sealed class JobPhoto : BaseEntity
     {
         public Guid Id { get; private set; }
         public string Url { get; private set; } = string.Empty;

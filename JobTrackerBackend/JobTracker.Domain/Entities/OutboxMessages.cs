@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace JobTracker.Domain.Entities
+{
+    public class OutboxMessages : BaseEntity
+    {
+        public Guid Id { get; set; }
+        public string Type { get; set; } = string.Empty;
+        public string Content { get; set; } = string.Empty;
+        public DateTime OccurredOn { get; set; }
+        public DateTime? ProcessedOn { get; set; }
+        public DateTime CreatedAt { get; set; }
+
+    }
+}

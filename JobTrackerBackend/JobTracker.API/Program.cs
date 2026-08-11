@@ -1,6 +1,15 @@
+using JobTracker.Infrastructure.Data;
+using JobTracker.Seeder;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<JobTrackerDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -19,5 +28,18 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+
+if (app.Environment.IsDevelopment())
+{
+    using var scope = app.Services.CreateScope();
+    var contextDb = scope.ServiceProvider.GetRequiredService<JobTrackerDbContext>();
+
+    await contextDb.Database.MigrateAsync();
+
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
+    await DatabaseSeeder.SeedAllAsync(contextDb);
+}
+
 
 app.Run();

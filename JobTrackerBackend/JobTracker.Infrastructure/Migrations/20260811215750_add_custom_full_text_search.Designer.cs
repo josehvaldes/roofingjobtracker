@@ -3,6 +3,7 @@ using System;
 using JobTracker.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JobTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(JobTrackerDbContext))]
-    partial class JobTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260811215750_add_custom_full_text_search")]
+    partial class add_custom_full_text_search
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

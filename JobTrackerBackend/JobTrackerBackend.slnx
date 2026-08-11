@@ -1,7 +1,11 @@
 <Solution>
+  <Folder Name="/tests/">
+    <Project Path="JobTracker.UnitTests/JobTracker.UnitTests.csproj" Id="de4fadb7-beeb-4deb-8605-800a9009ba89" />
+  </Folder>
   <Project Path="JobTracker.API/JobTracker.API.csproj" />
   <Project Path="JobTracker.Application/JobTracker.Application.csproj" />
   <Project Path="JobTracker.Contracts/JobTracker.Contracts.csproj" />
   <Project Path="JobTracker.Domain/JobTracker.Domain.csproj" />
   <Project Path="JobTracker.Infrastructure/JobTracker.Infrastructure.csproj" />
+  <Project Path="JobTracker.Seeder/JobTracker.Seeder.csproj" Id="3bf5d1bc-b6c6-46a8-b6e1-81faa7fcf087" />
 </Solution>

@@ -12,12 +12,12 @@ namespace JobTracker.Domain.Entities
         public string City { get; private set; } = string.Empty;
         public string State { get; private set; } = string.Empty;
         public string ZipCode { get; private set; } = string.Empty;
-        public decimal Latitude { get; private set; }
-        public decimal Longitude { get; private set; }
+        public double Latitude { get; private set; }
+        public double Longitude { get; private set; }
 
         private Address() { }
 
-        public Address(string street, string city, string state, string zipCode, decimal latitude, decimal longitude)
+        public Address(string street, string city, string state, string zipCode, double latitude, double longitude)
         {
             if (string.IsNullOrWhiteSpace(street)) throw new ArgumentException("Street is required.", nameof(street));
             if (string.IsNullOrWhiteSpace(city)) throw new ArgumentException("City is required.", nameof(city));

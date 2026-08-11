@@ -57,6 +57,21 @@ namespace JobTracker.Infrastructure.Configurations
             builder.Navigation(job => job.Address)
                 .IsRequired();
 
+            builder.HasOne<Worker>()
+                .WithMany()
+                .HasForeignKey(job => job.AssigneeId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne<Customer>()
+                .WithMany()
+                .HasForeignKey(job => job.CustomerId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne<Organization>()
+                .WithMany()
+                .HasForeignKey(job => job.OrganizationId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.HasMany(job => job.JobPhotos)
                 .WithOne()
                 .HasForeignKey(photo => photo.JobId)
