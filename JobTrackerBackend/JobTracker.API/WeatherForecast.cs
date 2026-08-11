@@ -1,4 +1,4 @@
-namespace JobTrackerAPI
+namespace JobTracker.API
 {
     public class WeatherForecast
     {

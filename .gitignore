@@ -8,6 +8,8 @@
 .codacy/*
 docker/.env
 JobTrackerBackend/.vs/*
-JobTrackerBackend/JobTrackerAPI/appsettings.Development.json
-JobTrackerBackend/JobTrackerAPI/bin/*
-JobTrackerBackend/JobTrackerAPI/obj/*
+JobTrackerBackend/JobTracker.API/appsettings.Development.json
+.vs/*
+**/bin/
+**/obj/
+

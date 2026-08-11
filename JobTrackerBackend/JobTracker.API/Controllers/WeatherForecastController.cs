@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace JobTrackerAPI.Controllers
+namespace JobTracker.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
