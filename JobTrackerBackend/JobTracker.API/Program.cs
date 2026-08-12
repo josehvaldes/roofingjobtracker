@@ -1,14 +1,21 @@
+using JobTracker.API;
+using JobTracker.API.Settings;
+using JobTracker.Infrastructure;
 using JobTracker.Infrastructure.Data;
 using JobTracker.Seeder;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
+
+MappingConfig.RegisterMappings();
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
-builder.Services.AddDbContext<JobTrackerDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+var appSettings = builder.Configuration.GetSection(AppSettings.SectionName)
+                                    .Get<AppSettings>() ?? new AppSettings();
+
+
+builder.Services.AddInfrastructureDependencies(builder.Configuration);
 
 
 builder.Services.AddControllers();
@@ -34,8 +41,11 @@ if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
     var contextDb = scope.ServiceProvider.GetRequiredService<JobTrackerDbContext>();
-
-    await contextDb.Database.MigrateAsync();
+    
+    if (appSettings.DbMigration)
+    {
+        await contextDb.Database.MigrateAsync();
+    }
 
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
     await DatabaseSeeder.SeedAllAsync(contextDb);

@@ -60,6 +60,8 @@ namespace JobTracker.Domain.Entities
                 AssigneeId = assigneeId,
                 CustomerId = customerId,
                 OrganizationId = organizationId,
+                
+                Status = Status.Draft, // Default status is Draft
 
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
@@ -115,21 +117,33 @@ namespace JobTracker.Domain.Entities
             UpdatedAt = DateTime.UtcNow;
         }
 
+        private string FindTransitionJobError(Status current, Status newStatus)
+        {
+            if (current == Status.Draft && (newStatus != Status.Scheduled && newStatus != Status.Cancelled))
+            {
+                return "Draft jobs can only transition to Scheduled or Cancelled.";
+            }
+            if (current == Status.Scheduled && (newStatus != Status.InProgress && newStatus != Status.Cancelled))
+            {
+                return "Scheduled jobs can only transition to InProgress or Cancelled.";
+            }
+            if (current == Status.InProgress && (newStatus != Status.Completed && newStatus != Status.Cancelled))
+            {
+                return "InProgress jobs can only transition to Completed or Cancelled.";
+            }
+            if ((current == Status.Completed || current == Status.Cancelled) && newStatus != current)
+            {
+                return "Completed or Cancelled jobs cannot transition to any other status.";
+            }
+            return String.Empty;
+        }
+
         public void UpdateStatus(Status newStatus)
         {
-            if (this.Status == Status.Completed || this.Status == Status.Cancelled)
+            var transitionError = FindTransitionJobError(Status, newStatus);
+            if (transitionError != string.Empty)
             {
-                throw new InvalidEntityException("Cannot update a job that is already completed or cancelled.");
-            }
-
-            if (newStatus == Status.InProgress && this.Status != Status.Scheduled)
-            {
-                throw new InvalidEntityException("Only scheduled jobs can move to InProgress.");
-            }
-
-            if (newStatus == Status.InProgress && this.ScheduledDate == null)
-            {
-                throw new InvalidEntityException("Cannot set a job to InProgress without a scheduled date.");
+                throw new InvalidJobTransitionException(this.Id, transitionError);
             }
 
             if (newStatus == Status.Completed)

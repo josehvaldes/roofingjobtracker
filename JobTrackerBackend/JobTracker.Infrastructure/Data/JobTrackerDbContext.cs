@@ -1,10 +1,11 @@
-﻿using JobTracker.Domain.Entities;
+﻿using JobTracker.Application.Common.Behaviors;
+using JobTracker.Domain.Entities;
 using JobTracker.Infrastructure.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobTracker.Infrastructure.Data
 {
-    public class JobTrackerDbContext : DbContext
+    public class JobTrackerDbContext : DbContext, IUnitOfWork
     {
         public DbSet<Job> Jobs { get; set; }
         public DbSet<JobPhoto> JobPhotos { get; set; }
