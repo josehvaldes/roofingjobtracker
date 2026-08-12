@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JobTracker.Application.Features.Jobs.DTO
 {
-    public class AddressDto
+    public class AddressResponse
     {
         public string Street { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;

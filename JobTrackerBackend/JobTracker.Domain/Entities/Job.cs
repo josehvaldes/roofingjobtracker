@@ -149,13 +149,15 @@ namespace JobTracker.Domain.Entities
             if (newStatus == Status.Completed)
             { 
                 _domainEvents.Add(new JobCompletedDomainEvent(
-                    this.Id
+                    this.Id,
+                    DateTime.UtcNow
                     ));
             }
             if (newStatus == Status.Cancelled) 
             { 
                 _domainEvents.Add(new JobCancelledDomainEvent(
-                    this.Id
+                    this.Id,
+                    DateTime.UtcNow
                     ));
             }
             

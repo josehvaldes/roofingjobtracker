@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JobTracker.Application.Common
 {
-    public record PagedResult<T>(
+    public record PagedList<T>(
         IReadOnlyList<T> Items,
         int TotalCount,
         int PageNumber,

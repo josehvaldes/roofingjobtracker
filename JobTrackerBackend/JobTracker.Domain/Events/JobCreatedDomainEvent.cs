@@ -14,6 +14,7 @@ namespace JobTracker.Domain.Events
         Guid customerId, 
         Guid organizationId) : IDomainEvent
     {
-
+        public DateTime OccurredOn { get;} = DateTime.UtcNow;
+        public Guid EntityId { get; } = id;
     }
 }

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace JobTracker.Domain.Events
 {
-    public record JobCancelledDomainEvent (Guid id) : IDomainEvent
+    public record JobCancelledDomainEvent(Guid id, DateTime time) : IDomainEvent
     {
+        public DateTime OccurredOn { get;} = time;
+
+        public Guid EntityId { get; } = id;
     }
 }

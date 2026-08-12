@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace JobTracker.Application.Features.Jobs.Queries
 {
-    internal sealed class SearchJobsQueryHandler(IJobRepository repository) : IQueryHandler<SearchJobsQuery, PagedResult<JobDTO>>
+    internal sealed class SearchJobsQueryHandler(IJobRepository repository) : IQueryHandler<SearchJobsQuery, PagedList<JobResponse>>
     {
-        public async Task<PagedResult<JobDTO>> Handle(SearchJobsQuery request, CancellationToken cancellationToken)
+        public async Task<PagedList<JobResponse>> Handle(SearchJobsQuery request, CancellationToken cancellationToken)
         {
             var jobs = await repository.SearchAsync(request.keyWord, request.pageNumber, request.pageSize, cancellationToken);
-            var dtoJobs = jobs.Adapt<List<JobDTO>>();
-            return new PagedResult<JobDTO>(
+            var dtoJobs = jobs.Adapt<List<JobResponse>>();
+            return new PagedList<JobResponse>(
                 dtoJobs, dtoJobs.Count, request.pageNumber, request.pageSize
                 );
         }

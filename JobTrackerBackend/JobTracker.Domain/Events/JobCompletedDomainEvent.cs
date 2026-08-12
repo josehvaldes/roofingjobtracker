@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace JobTracker.Domain.Events
 {
-    public record JobCompletedDomainEvent (Guid id) : IDomainEvent
+    public record JobCompletedDomainEvent (Guid Id, DateTime time) : IDomainEvent
     {
+        public DateTime OccurredOn { get;} = time;
+        public Guid EntityId { get; } = Id;
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace JobTracker.Application.Features.Jobs.Queries
 {
-    public sealed record class SearchJobsQuery(string keyWord, int pageNumber, int pageSize): IQuery<PagedResult<JobDTO>>
+    public sealed record class SearchJobsQuery(string keyWord, int pageNumber, int pageSize): IQuery<PagedList<JobResponse>>
     {
     }
 }

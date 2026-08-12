@@ -9,9 +9,9 @@ namespace JobTracker.Application
 
         public static void AddApplicationMapping()
         {
-            TypeAdapterConfig<Job, JobDTO>.NewConfig()
+            TypeAdapterConfig<Job, JobResponse>.NewConfig()
                 .Map(dest => dest.Status, src => src.Status.ToString())
-                .Map(dest => dest.Address, src => new AddressDto
+                .Map(dest => dest.Address, src => new AddressResponse
                  {
                      Street = src.Address.Street,
                      City = src.Address.City,

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace JobTracker.Infrastructure.Configurations
 {
-    internal class OutboxMessagesConfiguration: IEntityTypeConfiguration<OutboxMessages>, IEntityConfiguration
+    internal class OutboxMessagesConfiguration: IEntityTypeConfiguration<OutboxMessage>, IEntityConfiguration
     {
-        public void Configure(EntityTypeBuilder<OutboxMessages> builder)
+        public void Configure(EntityTypeBuilder<OutboxMessage> builder)
         {
             builder.ToTable("outbox_messages", schema: "jobs");
 

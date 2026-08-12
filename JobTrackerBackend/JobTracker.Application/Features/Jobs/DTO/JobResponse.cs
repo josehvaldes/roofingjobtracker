@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace JobTracker.Application.Features.Jobs.DTO
 {
-    public class JobDTO
+    public class JobResponse
     {
         public Guid Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public AddressDto Address { get; set; } = null!;
+        public AddressResponse Address { get; set; } = null!;
 
         public string Status { get; set; } = string.Empty;
 

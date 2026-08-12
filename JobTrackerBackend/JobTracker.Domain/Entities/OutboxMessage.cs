@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JobTracker.Domain.Entities
 {
-    public class OutboxMessages : BaseEntity
+    public class OutboxMessage : BaseEntity
     {
         public Guid Id { get; set; }
         public string Type { get; set; } = string.Empty;

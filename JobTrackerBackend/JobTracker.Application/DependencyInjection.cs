@@ -1,4 +1,5 @@
-﻿using JobTracker.Application.Common.Behaviors;
+﻿using FluentValidation;
+using JobTracker.Application.Common.Behaviors;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +14,7 @@ namespace JobTracker.Application
     public static class DependencyInjection
     {
 
-        public static IServiceCollection AddApplication(
+        public static IServiceCollection AddApplicationDependencies(
             this IServiceCollection services,
             IConfiguration config)
         {
@@ -21,7 +22,10 @@ namespace JobTracker.Application
                 cfg.RegisterServicesFromAssembly(typeof(ApplicationAssemblyMarker).Assembly);
                 cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
                 cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
+                cfg.LicenseKey = config["MediatR:LicenseKey"] ?? "FREE-LIMITED-USE";
             });
+            
+            services.AddValidatorsFromAssembly(typeof(ValidationBehavior<,>).Assembly);
 
             return services;
         }
