@@ -23,7 +23,7 @@ services:
     networks:
       - roofing_job_tracker_network
   jobtrackerapi:
-    image: jobtrackerapi:latest
+    image: jobtrackerapi:1.0
     env_file:
       - .env
     ports:
