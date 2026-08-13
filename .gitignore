@@ -13,3 +13,5 @@ JobTrackerBackend/JobTracker.API/appsettings.Development.json
 **/bin/
 **/obj/
 
+jobtrackerfrontend/.codacy/*
+jobtrackerfrontend/.github/instructions/codacy.instructions.md

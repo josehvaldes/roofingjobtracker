@@ -7,7 +7,7 @@ volumes:
   psgdata: null
 services:
   # Add to docker-compose.yml
-  jobtracker:
+  jobtrackerdb:
     image: postgres:18
     env_file:
       - .env
@@ -20,6 +20,14 @@ services:
     volumes:
       - psgdata:/var/lib/postgresql/
       - ../database/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+    networks:
+      - roofing_job_tracker_network
+  jobtrackerapi:
+    image: jobtrackerapi:latest
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
     networks:
       - roofing_job_tracker_network
 

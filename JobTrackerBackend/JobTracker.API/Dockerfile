@@ -13,6 +13,12 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["JobTracker.API/JobTracker.API.csproj", "JobTracker.API/"]
+COPY ["JobTracker.Application/JobTracker.Application.csproj", "JobTracker.Application/"]
+COPY ["JobTracker.Contracts/JobTracker.Contracts.csproj", "JobTracker.Contracts/"]
+COPY ["JobTracker.Domain/JobTracker.Domain.csproj", "JobTracker.Domain/"]
+COPY ["JobTracker.Infrastructure/JobTracker.Infrastructure.csproj", "JobTracker.Infrastructure/"]
+COPY ["JobTracker.IntegrationEvents/JobTracker.IntegrationEvents.csproj", "JobTracker.IntegrationEvents/"]
+COPY ["JobTracker.Seeder/JobTracker.Seeder.csproj", "JobTracker.Seeder/"]
 RUN dotnet restore "./JobTracker.API/JobTracker.API.csproj"
 COPY . .
 WORKDIR "/src/JobTracker.API"
