@@ -3,6 +3,7 @@ using FluentValidation;
 using JobTracker.API.Extensions;
 using JobTracker.Application.Features.Jobs.Commands.CompleteJob;
 using JobTracker.Application.Features.Jobs.Commands.CreateJob;
+using JobTracker.Application.Features.Jobs.Commands.UpdateJob;
 using JobTracker.Contracts.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -16,7 +17,8 @@ namespace JobTracker.API.Controllers
     [ApiVersion("1.0")]
     public class JobController(IMediator mediator,
         ILogger<JobController> logger,
-        IValidator<CreateJobRequest> createJobRequestValidator
+        IValidator<CreateJobRequest> createJobRequestValidator,
+        IValidator<PatchJobRequest> patchJobRequestValidator
         ) : ControllerBase
     {
         [HttpGet("/health")]
@@ -47,6 +49,16 @@ namespace JobTracker.API.Controllers
             var jobId = await mediator.Send(command, cancellationToken);
             logger.LogInformation("Job created with ID: {JobId}", jobId);
             return CreatedAtAction(nameof(GetJob), new { id = jobId }, jobId);
+        }
+
+        [HttpPatch("{id:guid}")]
+        public async Task<IActionResult> PatchJob(Guid id, [FromBody] PatchJobRequest request, CancellationToken cancellationToken) 
+        {
+            var validationResult = await patchJobRequestValidator.ValidateAsync(request, cancellationToken);
+            validationResult.ThrowIfInvalid();
+            var command = new UpdateJobCommand(id, request.Status);
+            await mediator.Send(command, cancellationToken);
+            return Accepted(new { JobId = id });
         }
 
         [HttpPatch("complete")]

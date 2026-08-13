@@ -54,13 +54,16 @@ if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
     var contextDb = scope.ServiceProvider.GetRequiredService<JobTrackerDbContext>();
-    
+
     if (appSettings.DbMigration)
     {
         await contextDb.Database.MigrateAsync();
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
+    }
+
+    if (appSettings.LoadSampleData) 
+    {
         await DatabaseSeeder.SeedAllAsync(contextDb);
-    }    
+    }
 }
 
 
