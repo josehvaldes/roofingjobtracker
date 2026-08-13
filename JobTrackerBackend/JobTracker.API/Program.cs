@@ -43,7 +43,7 @@ app.UseHttpsRedirection();
 
 app.UseHangfireDashboard("/hangfire");
 
-//RegisterJobs.AddBackgroundJobs();
+RegisterJobs.AddBackgroundJobs();
 
 app.UseAuthorization();
 

@@ -14,6 +14,8 @@ namespace JobTracker.Infrastructure.Jobs
                 // Process the message (e.g., send it to a message broker)
                 // For demonstration, we'll just mark it as processed
                 message.ProcessedOn = DateTime.UtcNow;
+                Console.WriteLine("Processing message: " + message.Id);
+                Console.WriteLine(message);
             }
             await context.SaveChangesAsync(cancellationToken);
         }
