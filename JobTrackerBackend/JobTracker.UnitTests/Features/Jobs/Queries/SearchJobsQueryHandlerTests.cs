@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace JobTracker.UnitTests.Features.Queries
+namespace JobTracker.UnitTests.Features.Jobs.Queries
 {
     public class SearchJobsQueryHandlerTests
     {

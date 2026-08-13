@@ -3,11 +3,6 @@ using JobTracker.Domain.Events;
 using JobTracker.Infrastructure.Data;
 using JobTracker.Infrastructure.Integrations;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace JobTracker.UnitTests.IntegrationTests
@@ -27,14 +22,14 @@ namespace JobTracker.UnitTests.IntegrationTests
             {
                 var initCount = context.OutboxMessages.Count();
 
-                var interceptor = new OutboxMessagesInterceptor(context);
+                var interceptor = new OutboxMessagesInterceptor();
 
                 var domainEvent = new JobCompletedDomainEvent(
                     Guid.NewGuid(),
                     DateTime.UtcNow
                     );
 
-                await interceptor.Handle(domainEvent, CancellationToken.None);
+                await interceptor.Handle(context, domainEvent, CancellationToken.None);
                 context.SaveChanges();
 
                 var newCount = context.OutboxMessages.Count();

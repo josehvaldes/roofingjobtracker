@@ -1,9 +1,11 @@
 ﻿using Hangfire;
 using Hangfire.PostgreSql;
 using JobTracker.Application.Common.Behaviors;
+using JobTracker.Application.Common.Interfaces;
 using JobTracker.Infrastructure.Data;
 using JobTracker.Infrastructure.Integrations;
 using JobTracker.Infrastructure.Jobs;
+using JobTracker.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +23,10 @@ namespace JobTracker.Infrastructure
 
             services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<JobTrackerDbContext>());
             services.AddScoped<IOutboxMessagesInterceptor, OutboxMessagesInterceptor>();
+            services.AddScoped<IJobRepository, JobRepository>();
             services.AddScoped<ProcessOutboxMessagesJob>();
+
+
 
             services.AddHangfireConfiguration(config);
             return services;

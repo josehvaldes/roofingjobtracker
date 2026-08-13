@@ -1,4 +1,5 @@
 ﻿using JobTracker.Domain.Events;
+using JobTracker.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace JobTracker.Infrastructure.Integrations
 {
     public interface IOutboxMessagesInterceptor
     {
-        Task Handle(IDomainEvent domainEvent, CancellationToken cancellationToken);
+        Task Handle(JobTrackerDbContext context, IDomainEvent domainEvent, CancellationToken cancellationToken);
     }
 }

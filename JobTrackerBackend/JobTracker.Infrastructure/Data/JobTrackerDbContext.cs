@@ -56,7 +56,7 @@ namespace JobTracker.Infrastructure.Data
                 var tasks = new List<Task>();
                 foreach (var domainEvent in domainEvents)
                 {
-                    tasks.Add(_interceptor.Handle(domainEvent, cancellationToken));
+                    tasks.Add(_interceptor.Handle(this, domainEvent, cancellationToken));
                 }
                 await Task.WhenAll(tasks);
             }

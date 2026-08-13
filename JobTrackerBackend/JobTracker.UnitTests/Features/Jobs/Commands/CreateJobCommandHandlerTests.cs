@@ -1,10 +1,11 @@
 ﻿using JobTracker.Application.Common.Interfaces;
 using JobTracker.Application.Features.Jobs.Commands.CreateJob;
 using JobTracker.Domain.Entities;
+using JobTracker.Domain.Events;
 using NSubstitute;
 using Xunit;
 
-namespace JobTracker.UnitTests.Features.Commands
+namespace JobTracker.UnitTests.Features.Jobs.Commands
 {
     public class CreateJobCommandHandlerTests
     {
@@ -35,7 +36,20 @@ namespace JobTracker.UnitTests.Features.Commands
             var result = await handler.Handle(createJobCommand, CancellationToken.None);
 
             Assert.NotEqual(Guid.Empty, result);
+
             await repository.Received(1).AddAsync(Arg.Any<Job>(), Arg.Any<CancellationToken>());
+
+            var capturedJob = repository.ReceivedCalls()
+                .First(c => c.GetMethodInfo().Name == nameof(repository.AddAsync))
+                .GetArguments()
+                .OfType<Job>()
+                .First();
+
+            Assert.Single(capturedJob.DomainEvents);
+            Assert.IsType<JobCreatedDomainEvent>(capturedJob.DomainEvents.First());
+
+            var domainEvent = (JobCreatedDomainEvent)capturedJob.DomainEvents.First();
+            Assert.Equal(result, domainEvent.EntityId);
         }
     }
 }

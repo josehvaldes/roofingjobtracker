@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace JobTracker.UnitTests.Features.Commands
+namespace JobTracker.UnitTests.Features.Jobs.Commands
 {
     public class CompleteJobCommandHandlerTests
     {
@@ -41,7 +41,7 @@ namespace JobTracker.UnitTests.Features.Commands
             var handler = new CompleteJobCommandHandler(mockJobRepository);
             Func<Task> act = async () => await handler.Handle(new CompleteJobCommand(jobId), CancellationToken.None);
             await act.Should().ThrowAsync<InvalidJobTransitionException>()
-                .WithMessage($"Job {jobId} cannot transition: Draft jobs can only transition to Scheduled or Cancelled.");
+                .WithMessage($"Job {jobId} cannot transition: Draft jobs can only transition to Scheduled.");
         }
 
         [Fact]

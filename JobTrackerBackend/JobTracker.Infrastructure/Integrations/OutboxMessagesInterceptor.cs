@@ -7,7 +7,7 @@ using JobTracker.IntegrationEvents.Serializers;
 
 namespace JobTracker.Infrastructure.Integrations
 {
-    public class OutboxMessagesInterceptor(JobTrackerDbContext context) : IOutboxMessagesInterceptor
+    public class OutboxMessagesInterceptor : IOutboxMessagesInterceptor
     {
         private static readonly Dictionary<Type, Func<IDomainEvent, Task<string?>>> handlers = new()
         {
@@ -29,7 +29,7 @@ namespace JobTracker.Infrastructure.Integrations
             return result.SerializedContent;
         }
 
-        public async Task Handle(IDomainEvent domainEvent, CancellationToken cancellationToken)
+        public async Task Handle(JobTrackerDbContext context, IDomainEvent domainEvent, CancellationToken cancellationToken)
         {
             var eventType = domainEvent.GetType();
             if (handlers.TryGetValue(eventType, out var handler))

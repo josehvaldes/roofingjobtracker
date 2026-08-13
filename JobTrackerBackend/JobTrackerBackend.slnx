@@ -1,8 +1,8 @@
 <Solution>
-  <Folder Name="/Solution Items/">
-    <File Path="../technical-assessment-fullstack-senior 3 1.md" />
-  </Folder>
+  <Folder Name="/Solution Items/" />
   <Folder Name="/tests/">
+    <Project Path="JobTracker.ArchitectureTests/JobTracker.ArchitectureTests.csproj" Id="309bfad9-0592-47c1-92a8-75b895f6c580" />
+    <Project Path="JobTracker.IntegrationTests/JobTracker.IntegrationTests.csproj" Id="c6ecdab3-1fbe-4783-98cc-3295a9b9ce80" />
     <Project Path="JobTracker.UnitTests/JobTracker.UnitTests.csproj" Id="de4fadb7-beeb-4deb-8605-800a9009ba89" />
   </Folder>
   <Project Path="JobTracker.API/JobTracker.API.csproj" />

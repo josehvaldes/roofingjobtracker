@@ -119,9 +119,9 @@ namespace JobTracker.Domain.Entities
 
         private string FindTransitionJobError(Status current, Status newStatus)
         {
-            if (current == Status.Draft && (newStatus != Status.Scheduled && newStatus != Status.Cancelled))
+            if (current == Status.Draft && newStatus != Status.Scheduled)
             {
-                return "Draft jobs can only transition to Scheduled or Cancelled.";
+                return "Draft jobs can only transition to Scheduled.";
             }
             if (current == Status.Scheduled && (newStatus != Status.InProgress && newStatus != Status.Cancelled))
             {
