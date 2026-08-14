@@ -11,10 +11,12 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageReference Include="Mapster" Version="10.0.11" />
     <PackageReference Include="MediatR" Version="14.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.12" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.19" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JobTracker.Contracts\JobTracker.Contracts.csproj" />
     <ProjectReference Include="..\JobTracker.Domain\JobTracker.Domain.csproj" />
   </ItemGroup>
 

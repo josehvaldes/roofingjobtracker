@@ -45,6 +45,7 @@ app.UseHangfireDashboard("/hangfire");
 
 RegisterJobs.AddBackgroundJobs();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
